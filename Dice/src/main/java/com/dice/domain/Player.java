@@ -13,7 +13,7 @@ public class Player {
 	private String name;
 	private int wins = 0;
 	private List<Game> resultGame = new ArrayList<Game>();// variable para guardar el resultado de las tiradas
-	private static final String ANONYMOUS = "Anonimo";
+	//private static final String ANONYMOUS = "Anonimo";
 	
 	private Calendar dataIn;
 

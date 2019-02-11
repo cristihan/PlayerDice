@@ -50,6 +50,12 @@ public class PlayerDTO {
 	public List<Game> getResultGame() {
 		return resultGame;
 	}
+
+	public Calendar getDataIn() {
+		return dataIn;
+	}
+	
+	
 	
 
 }

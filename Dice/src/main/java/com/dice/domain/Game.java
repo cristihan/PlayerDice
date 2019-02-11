@@ -7,7 +7,9 @@ public class Game {
 	
 	private Integer id;
 	private boolean wins = true;
-	private List<Dice> resultDice = new ArrayList<Dice>();
+	private List<Dice> listDice = new ArrayList<Dice>();
+	private List<Integer> listResult = new ArrayList<Integer>();
+	private int winner = 0;
 	
 	public Game() {
 		
@@ -15,9 +17,32 @@ public class Game {
 	
 	public Game(Integer value) {
 		for (int i = 0; i < value; i++) {
-			resultDice.add(new Dice());
+			listDice.add(new Dice());
 		}
+		
+		for (Dice dice : listDice) {
+			listResult.add(dice.getResult());
+		}
+		
 	}
+	
+	public void addDiceValue(Integer value) {
+        if (winner == 0 && (value == 5 || value == 6)) 
+        	winner = value;
+        else 
+        	wins = wins && (value == winner);
+
+        listResult.add(value);
+    }
+	/*
+	public boolean gameResult() {
+		for (int i = 0; i < listResult.size()-1; i++) {
+			if(listResult.get(i) == 5 && listResult.get(i) == 6 || !listResult.get(i).equals(listResult.get(i+1))) {
+				return false;
+			}
+		}
+		return true;
+	}*/
 
 	public Integer getId() {
 		return id;
@@ -35,15 +60,21 @@ public class Game {
 		this.wins = wins;
 	}
 
-	public List<Dice> getResultDice() {
-		return resultDice;
+	public List<Dice> getListDice() {
+		return listDice;
 	}
 
-	public void setResultDice(List<Dice> resultDice) {
-		this.resultDice = resultDice;
+	public void setListtDice(List<Dice> resultDice) {
+		this.listDice = resultDice;
 	}
 	
-	
+	public List<Integer> getListResult() {
+		return listResult;
+	}
+
+	public void setListResult(List<Integer> listResult) {
+		this.listResult = listResult;
+	}
 		
 	
 	

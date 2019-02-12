@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import com.dice.application.DTO.PlayerDTO;
+import com.dice.application.dto.PlayerDTO;
 import com.dice.utilities.NameRequiredException;
 
 public class Player {

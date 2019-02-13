@@ -45,14 +45,14 @@ public class PlayerRepository {
 	}
 	
 	/*
-	 * Este metodo hay que utilizarlo y comprobarlo
-	 * o si no borrarlo
+	 * Este metodo creado en la clase Interfice Helper
+	 * utilizarlo o comprobar que funciones o si no borrarlo
 	 */
 	public void removeByPlayer(Player player) {
 		repository.removeByPlayer(player);
 	}
 
-	public void removePlayer(int playerId) throws NotFoundException {
+	public void deletePlayer(int playerId) throws NotFoundException {
 		repository.deleteById(playerId);
 	}
 

@@ -12,7 +12,7 @@ public class Player {
 	private Integer id;
 	private String name;
 	private int wins = 0;
-	private List<Game> resultGame = new ArrayList<Game>();// variable para guardar el resultado de las tiradas
+	private List<Game> listPlayGame = new ArrayList<Game>();// variable para guardar el resultado de las tiradas
 	//private static final String ANONYMOUS = "Anonimo";
 	
 	private Calendar dataIn;
@@ -54,38 +54,38 @@ public class Player {
 	 * Metodo para ver el porcentaje de exito
 	 */
 	public double successRate() {
-		if (resultGame.size() > 0)
-			return (wins / (double) resultGame.size()) * 100;
+		if (listPlayGame.size() > 0)
+			return (wins / (double) listPlayGame.size()) * 100;
 		else
 			return 0;
 	}
 
 	/*
-	 * 
+	 * metodo para añadir una tirada al juego
 	 */
-	public void addResultGame(Game resultGame) {
-		if (resultGame.isWins())
+	public void addplayGame(Game playGame) {
+		if (playGame.isWins())
 			wins++;
-		this.resultGame.add(resultGame);
+		this.listPlayGame.add(playGame);
 	}
 
 	/*
-	 * metodo para
+	 * muestra la lista de tiradas por el jugador
 	 */
-	public List<Game> getResultPlay() {
-		return new ArrayList<>(resultGame);
+	public List<Game> getListPlayGame() {
+		return new ArrayList<>(listPlayGame);
 	}
 
-	public void setResultGame(List<Game> resultGame) {
-		this.resultGame = resultGame;
+	public void setListPlatGame(List<Game> listPlayGame) {
+		this.listPlayGame = listPlayGame;
 	}
 
 	/*
 	 * metodo para eliminar el listado de Tiradas
 	 */
 	public void deleteGame() {
-		this.resultGame = new ArrayList<Game>();
-		// estevlinia permite limpiar o eliminar la lista de tiradas
+		this.listPlayGame = new ArrayList<Game>();
+		// esta linia permite limpiar o eliminar la lista de tiradas
 		//this.resultGame.clear();
 		
 	}

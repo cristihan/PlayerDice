@@ -26,11 +26,26 @@ public class GameController {
 		Player player = playerRepository.getPlayerById(playerId);
 		// Player player1 = playerController.getPlayer(playerId);
 		Game game = new Game(numberDice);
+		//player.successRate();
+		//playerController.createGame(player, game);
 		playerRepository.createGame(game);
 
 		playerRepository.createPlayer(player);
+		player.successRate();
 
 		return new GameDTO(game);
+
+	}
+	
+	/*
+	 * /players/{id}/games: elimina les tirades del jugador.
+	 */
+	public void deleteGamesPlayer(int playerId) throws NotFoundException, InvalidParamException {
+		Player player = playerController.getPlayerId(playerId);
+		player.deleteGame();
+		player.successRate();
+
+		playerRepository.createPlayer(player);
 
 	}
 

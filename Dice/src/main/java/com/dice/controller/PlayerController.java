@@ -1,5 +1,8 @@
 package com.dice.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -55,7 +58,49 @@ public class PlayerController {
 	 * players/: retorna el llistat de tots els jugadors del 
 	 * sistema amb el seu percentatge mig d’èxits 
 	 */
+	public List<PlayerDTO> getAllPlayers() throws NotFoundException, InvalidParamException{
+		List<PlayerDTO> playerDTOList = new ArrayList<>();
+		List<Player> playerList = playerRepository.getAllPlayer();
+		if(playerList.isEmpty())//la lista no deberia estar vacia
+			throw new NotFoundException();
+		for (Player player : playerList) {
+			playerDTOList.add(new PlayerDTO(player));
+		}
+		return playerDTOList;
+	}
 	
+	/*
+	 * /players/ranking: retorna el ranking mig de tots els jugadors
+	 *  del sistema. És a dir, el percentatge mig d’èxits. 
+	 */
+	public double getRankingAllPlayer() throws NotFoundException {
+		double successRate = 0;
+		List<Player> playerList = playerRepository.getAllPlayer();
+		if(playerList.isEmpty())//la lista no deberia estar vacia
+			throw new NotFoundException();
+		for (Player player : playerList) {
+			successRate = successRate + player.successRate();
+		}
+		return successRate/playerRepository.getAllPlayer().size();
+	}
+	
+	/*
+	 * players/ranking/loser: retorna el jugador amb pitjor percentatge d’èxit.
+	 */
+	public PlayerDTO getPlayerRankingLoser(int playerId) throws NotFoundException, InvalidParamException {
+		Player player = playerRepository.getPlayerById(playerId);
+		
+		return new PlayerDTO(player);
+	}
+	
+	/*
+	 * /players/ranking/winner: retorna el jugador amb mitjor percentatge d’èxit.
+	 */
+	public PlayerDTO getPlayerRankingWinner(int playerId) throws NotFoundException, InvalidParamException {
+		Player player = playerRepository.getPlayerById(playerId);
+		
+		return new PlayerDTO(player);
+	}
 	
 	
 	Player getPlayerId(int playerId) throws NotFoundException, InvalidParamException {

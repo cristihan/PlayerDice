@@ -28,13 +28,8 @@ public class PlayerRepository {
 			throw new InvalidParamException();
 		}
 
-	}
+	}	
 	
-	public void createGame(Game game) throws InvalidParamException {
-		if(game == null)
-			throw new InvalidParamException();
-		gameRepository.save(game);
-	}
 
 	public List<Player> getAllPlayer() {
 		List<Player> result = new ArrayList<>();

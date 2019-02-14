@@ -1,5 +1,8 @@
 package com.dice.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -25,13 +28,10 @@ public class GameController {
 	public GameDTO createGame(int playerId, int numberDice) throws NotFoundException, InvalidParamException {
 		Player player = playerRepository.getPlayerById(playerId);
 		// Player player1 = playerController.getPlayer(playerId);
-		Game game = new Game(numberDice);
-		//player.successRate();
-		//playerController.createGame(player, game);
-		playerRepository.createGame(game);
-
-		playerRepository.createPlayer(player);
-		player.successRate();
+		Game game = new Game(numberDice);		
+		playerController.createGame(player, game);
+		player.successRate();		
+		playerRepository.createPlayer(player);	
 
 		return new GameDTO(game);
 
@@ -48,5 +48,21 @@ public class GameController {
 		playerRepository.createPlayer(player);
 
 	}
+	
+	/*
+	 * players/{id}/games:retorna el llistat de jugades per un jugador.
+	 */
+	public List<GameDTO> getAllGamesByPlayer(int playerId) throws NotFoundException, InvalidParamException{
+		List<GameDTO> gameDTOList = new ArrayList<>();
+		Player player = playerRepository.getPlayerById(playerId);
+		for (Game game : player.getListPlayGame()) {
+			//GameDTO gameDTO = new GameDTO(game);
+            //gameDTOList.add(gameDTO);
+			gameDTOList.add(new GameDTO(game));
+		}
+		return gameDTOList;
+		
+	}
+	
 
 }

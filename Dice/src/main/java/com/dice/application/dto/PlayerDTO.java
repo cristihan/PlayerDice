@@ -12,7 +12,7 @@ public class PlayerDTO {
 	
 	private int id;
 	private String name;
-	private int wins;
+	private double wins;
 	private List<Game> resultGame = new ArrayList<Game>();
 
 	private Calendar dataIn;
@@ -43,7 +43,7 @@ public class PlayerDTO {
 		return name;
 	}	
 
-	public int getWins() {
+	public double getWins() {
 		return wins;
 	}
 

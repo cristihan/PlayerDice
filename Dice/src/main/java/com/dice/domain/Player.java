@@ -11,7 +11,7 @@ public class Player {
 
 	private Integer id;
 	private String name;
-	private int wins = 0;
+	private double wins;
 	private List<Game> listPlayGame = new ArrayList<Game>();// variable para guardar el resultado de las tiradas
 	//private static final String ANONYMOUS = "Anonimo";
 	
@@ -26,6 +26,7 @@ public class Player {
 			throw new NameRequiredException();
 		
 			this.name = player.getName();
+			this.wins = 0;
 			this.dataIn = Calendar.getInstance();
 		
 	}
@@ -42,12 +43,8 @@ public class Player {
 		this.name = name;
 	}
 
-	public int getWins() {
+	public double getWins() {
 		return wins;
-	}
-
-	public void setWins(int wins) {
-		this.wins = wins;
 	}
 
 	/*
@@ -76,7 +73,7 @@ public class Player {
 		return new ArrayList<>(listPlayGame);
 	}
 
-	public void setListPlatGame(List<Game> listPlayGame) {
+	public void setListPlayGame(List<Game> listPlayGame) {
 		this.listPlayGame = listPlayGame;
 	}
 

@@ -54,13 +54,13 @@ public class Player {
 		if (listPlayGame.size() > 0)
 			return (wins / (double) listPlayGame.size()) * 100;
 		else
-			return 0;
+			return 0.00;
 	}
 
 	/*
 	 * metodo para añadir una tirada al juego
 	 */
-	public void addplayGame(Game playGame) {
+	public void addGame(Game playGame) {
 		if (playGame.isWins())
 			wins++;
 		this.listPlayGame.add(playGame);

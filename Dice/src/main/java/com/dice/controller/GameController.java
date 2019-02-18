@@ -27,42 +27,38 @@ public class GameController {
 	 */
 	public GameDTO createGame(int playerId, int numberDice) throws NotFoundException, InvalidParamException {
 		Player player = playerRepository.getPlayerById(playerId);
-		// Player player1 = playerController.getPlayer(playerId);
-		Game game = new Game(numberDice);		
-		playerController.createGame(player, game);
-		player.successRate();		
-		playerRepository.createPlayer(player);	
+		Game game = new Game(numberDice);
+		player.addGame(game);
+		playerRepository.savePlayer(player);
 
 		return new GameDTO(game);
-
 	}
-	
+
 	/*
 	 * /players/{id}/games: elimina les tirades del jugador.
 	 */
 	public void deleteGamesPlayer(int playerId) throws NotFoundException, InvalidParamException {
 		Player player = playerController.getPlayerId(playerId);
-		player.deleteGame();
+		player.deleteGame();	
 		player.successRate();
 
-		playerRepository.createPlayer(player);
+		playerRepository.savePlayer(player);
 
 	}
-	
+
 	/*
 	 * players/{id}/games:retorna el llistat de jugades per un jugador.
 	 */
-	public List<GameDTO> getAllGamesByPlayer(int playerId) throws NotFoundException, InvalidParamException{
+	public List<GameDTO> getAllGamesByPlayer(int playerId) throws NotFoundException, InvalidParamException {
 		List<GameDTO> gameDTOList = new ArrayList<>();
 		Player player = playerRepository.getPlayerById(playerId);
 		for (Game game : player.getListPlayGame()) {
-			//GameDTO gameDTO = new GameDTO(game);
-            //gameDTOList.add(gameDTO);
+			// GameDTO gameDTO = new GameDTO(game);
+			// gameDTOList.add(gameDTO);
 			gameDTOList.add(new GameDTO(game));
 		}
 		return gameDTOList;
-		
+
 	}
-	
 
 }

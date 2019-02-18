@@ -19,7 +19,7 @@ public class PlayerRepository {
 	
 	private HelperGameRepository gameRepository;
 
-	public void createPlayer(Player player) throws InvalidParamException {
+	public void savePlayer(Player player) throws InvalidParamException {
 		if (player == null)
 			throw new InvalidParamException();
 		try {

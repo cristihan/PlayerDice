@@ -34,15 +34,6 @@ public class Game {
 
         listResult.add(value);
     }
-	/*
-	public boolean gameResult() {
-		for (int i = 0; i < listResult.size()-1; i++) {
-			if(listResult.get(i) == 5 && listResult.get(i) == 6 || !listResult.get(i).equals(listResult.get(i+1))) {
-				return false;
-			}
-		}
-		return true;
-	}*/
 
 	public Integer getId() {
 		return id;

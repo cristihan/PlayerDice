@@ -25,15 +25,10 @@ public class PlayerController {
 	 */
 	public PlayerDTO createPlayer(PlayerDTO playerDTO) throws NameRequiredException, InvalidParamException {
 		Player player = new Player(playerDTO);
-		playerRepository.createPlayer(player);		
+		playerRepository.savePlayer(player);		
 		return new PlayerDTO(player);		
 	}
-	
-	public void createGame(Player player, Game game) {
-		player.addplayGame(game);
-		player.successRate();
-	}
-	
+
 	
 	/*
 	 * players : modifica el nom del jugador
@@ -41,7 +36,7 @@ public class PlayerController {
 	public PlayerDTO updatePlayer(int playerId, PlayerDTO editplayer) throws NotFoundException, InvalidParamException {
 		Player player = playerRepository.getPlayerById(playerId);
 		player.setName(editplayer.getName());
-		playerRepository.createPlayer(player);
+		playerRepository.savePlayer(player);
 		return new PlayerDTO(player);
 		
 	}
@@ -73,7 +68,7 @@ public class PlayerController {
 	 * /players/ranking: retorna el ranking mig de tots els jugadors
 	 *  del sistema. És a dir, el percentatge mig d’èxits. 
 	 */
-	public double getRankingAllPlayer() throws NotFoundException {
+	public double getSuccessRateAllPlayer() throws NotFoundException {
 		double successRate = 0;
 		List<Player> playerList = playerRepository.getAllPlayer();
 		if(playerList.isEmpty())//la lista no deberia estar vacia
@@ -87,18 +82,30 @@ public class PlayerController {
 	/*
 	 * players/ranking/loser: retorna el jugador amb pitjor percentatge d’èxit.
 	 */
-	public PlayerDTO getPlayerRankingLoser(int playerId) throws NotFoundException, InvalidParamException {
-		Player player = playerRepository.getPlayerById(playerId);
-		
+	public PlayerDTO getWorstPlayerSuccessRate() throws NotFoundException, InvalidParamException {
+		Player player = null;
+		List<Player> playerList = playerRepository.getAllPlayer();
+		if (playerList.isEmpty())
+			throw new NotFoundException();
+		for (Player p : playerList) {
+			if (player == null || player.successRate() > p.successRate())
+				player = p;
+		}
 		return new PlayerDTO(player);
 	}
 	
 	/*
 	 * /players/ranking/winner: retorna el jugador amb mitjor percentatge d’èxit.
 	 */
-	public PlayerDTO getPlayerRankingWinner(int playerId) throws NotFoundException, InvalidParamException {
-		Player player = playerRepository.getPlayerById(playerId);
-		
+	public PlayerDTO getBestPlayerSuccessRate() throws NotFoundException, InvalidParamException {
+		Player player = null;
+		List<Player> playerList = playerRepository.getAllPlayer();
+		if(playerList.isEmpty())
+			throw new NotFoundException();
+		for (Player p : playerList) {
+			if(player == null || player.successRate() < p.successRate())
+				player = p;
+		}		
 		return new PlayerDTO(player);
 	}
 	

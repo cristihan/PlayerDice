@@ -28,6 +28,8 @@ public class GameController {
 	public GameDTO createGame(int playerId, int numberDice) throws NotFoundException, InvalidParamException {
 		Player player = playerRepository.getPlayerById(playerId);
 		Game game = new Game(numberDice);
+		//game.addDice(numberDice);
+		game.playGame();
 		player.addGame(game);
 		playerRepository.savePlayer(player);
 

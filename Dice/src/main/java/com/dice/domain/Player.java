@@ -4,18 +4,35 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
 import com.dice.application.dto.PlayerDTO;
 import com.dice.utilities.NameRequiredException;
 
+@Entity(name ="Player")
 public class Player {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name="playerId")
 	private Integer id;
+	@Column(name="name")
 	private String name;
-	private double wins;
-	private List<Game> listPlayGame = new ArrayList<Game>();// variable para guardar el resultado de las tiradas
-	//private static final String ANONYMOUS = "Anonimo";
+	@Column(name="hasWon")
+	private double hasWon;
 	
-	private Calendar dataIn;
+	@OneToMany(targetEntity = Game.class)
+	@JoinColumn(name = "game_id")
+	private List<Game> listPlayGame = new ArrayList<Game>();// variable para guardar el resultado de las tiradas
+	
+	
+	//private Calendar dataIn;
 
 	public Player() {
 
@@ -26,8 +43,8 @@ public class Player {
 			throw new NameRequiredException();
 		
 			this.name = player.getName();
-			this.wins = 0;
-			this.dataIn = Calendar.getInstance();
+			this.hasWon = 0;
+		//	this.dataIn = Calendar.getInstance();
 		
 	}
 
@@ -44,25 +61,31 @@ public class Player {
 	}
 
 	public double getWins() {
-		return wins;
+		return hasWon;
 	}
 
 	/*
 	 * Metodo para ver el porcentaje de exito
 	 */
 	public double successRate() {
+		double success = 0;
+		for (Game game : listPlayGame) {
+			if (game.hasWon())
+			++success;				
+		}
 		if (listPlayGame.size() > 0)
-			return (wins / (double) listPlayGame.size()) * 100;
+			return (success*100) / listPlayGame.size();
+			//return (wins / (double) listPlayGame.size()) * 100;
 		else
 			return 0.00;
 	}
 
 	/*
-	 * metodo para añadir una tirada al juego
+	 * metodo para añadir una tirada del juego
 	 */
 	public void addGame(Game playGame) {
 		if (playGame.isWins())
-			wins++;
+			hasWon++;
 		this.listPlayGame.add(playGame);
 	}
 
@@ -88,7 +111,7 @@ public class Player {
 	}
 	
 	public Calendar getDateIn() {
-		return dataIn;
+		return null;//dataIn;
 	}
 
 }

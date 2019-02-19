@@ -69,22 +69,31 @@ public class PlayerRestController {
 	 @GetMapping(value = "/players/ranking", produces = "application/json;charset=UTF-8")
 	 public String getRanking() throws NotFoundException, JSONException {
 		 double ranking = controller.getSuccessRateAllPlayer();
-		 JSONObject json=new JSONObject();
+		 JSONObject json= new JSONObject();
 		 json.put("ranking", ranking);
-			
+		
+		 //return toJson(ranking);
 		 return json.toString();
 	 }
 	 
 	 //GET /players/ranking/loser: retorna el jugador amb pitjor percentatge d’èxit.
 	 @GetMapping(value = "/players/ranking/loser", produces = "application/json;charset=UTF-8")
-	 public String getrankingLoser() throws NotFoundException, InvalidParamException {
+	 public String getrankingLoser() throws NotFoundException, InvalidParamException, JSONException {
 		 PlayerDTO player = controller.getWorstPlayerSuccessRate();
-		 return toJson(player);
+		 JSONObject json = new JSONObject();
+		 json.put("Jugador Loser", player);
+		 //return toJson(player);
+		 return json.toString();
 	 }
 	 
 	 //GET /players/ranking/winner: retorna el jugador amb pitjor percentatge d’èxit.
 	 @GetMapping(value = "/players/ranking/winner", produces = "application/json;charset=UTF-8")
-	    public String getRankingWinner() {
+	    public String getRankingWinner() throws NotFoundException, InvalidParamException, JSONException {
+		 PlayerDTO player = controller.getBestPlayerSuccessRate();
+		 JSONObject json = new JSONObject();
+		 json.put("Jugador Best", player);
+		//return toJson(player);
+		 return json.toString();
 		 
 	 }
 	

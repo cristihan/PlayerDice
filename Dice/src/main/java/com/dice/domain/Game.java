@@ -3,71 +3,81 @@ package com.dice.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name ="Game")
 public class Game {
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name="game_id")
 	private Integer id;
-	private boolean wins = true;
+	@Column(name="hasWon")
+	private boolean hasWon = true;
+	
+	@Embedded
 	private List<Dice> listDice = new ArrayList<Dice>();
-	private List<Integer> listResult = new ArrayList<Integer>();
-	private int winner = 0;
-	
+
+
+
 	public Game() {
-		
+
 	}
-	
+
 	public Game(Integer value) {
 		for (int i = 0; i < value; i++) {
 			listDice.add(new Dice());
 		}
-		
-		for (Dice dice : listDice) {
-			listResult.add(dice.getResult());
-		}
-		
 	}
-	
-	public void addDiceValue(Integer value) {
-        if (winner == 0 && (value == 5 || value == 6)) 
-        	winner = value;
-        else 
-        	wins = wins && (value == winner);
 
-        listResult.add(value);
-    }
+	public List<Integer> getListResult() {
+		List<Integer> results = new ArrayList<>();
+		for (Dice dice : listDice) {
+			results.add(dice.getResult());
+		}
+		return results;
+	}
+
+	public void addDice(Integer value) {
+		for (int i = 0; i < value; i++) {
+			listDice.add(new Dice());
+		}
+	}
 
 	public Integer getId() {
 		return id;
 	}
+	
+	public boolean playGame() {
+		for (Dice dice : listDice)
+		dice.rollDice();		
+		return hasWon();
+	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public boolean hasWon() {
+		return hasAllDiceSameValue(5) || hasAllDiceSameValue(6);
+	}
+
+	public boolean hasAllDiceSameValue(int value) {
+		for (Dice dice : listDice) {
+			if (dice.getResult() != value) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public boolean isWins() {
-		return wins;
-	}
-
-	public void setWins(boolean wins) {
-		this.wins = wins;
+		return hasWon;
 	}
 
 	public List<Dice> getListDice() {
 		return listDice;
 	}
-
-	public void setListtDice(List<Dice> resultDice) {
-		this.listDice = resultDice;
-	}
-	
-	public List<Integer> getListResult() {
-		return listResult;
-	}
-
-	public void setListResult(List<Integer> listResult) {
-		this.listResult = listResult;
-	}
-		
-	
-	
 
 }

@@ -4,20 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import com.dice.domain.Game;
 import com.dice.domain.Player;
 import com.dice.utilities.InvalidParamException;
 import com.dice.utilities.NotFoundException;
 
-
-
+@Repository
 public class PlayerRepository {
 
 	@Autowired
 	private HelperPlayerRepository repository;
 	
-	private HelperGameRepository gameRepository;
 
 	public void savePlayer(Player player) throws InvalidParamException {
 		if (player == null)
@@ -28,8 +26,7 @@ public class PlayerRepository {
 			throw new InvalidParamException();
 		}
 
-	}	
-	
+	}
 
 	public List<Player> getAllPlayer() {
 		List<Player> result = new ArrayList<>();
@@ -38,13 +35,13 @@ public class PlayerRepository {
 		}
 		return result;
 	}
-	
+
 	/*
-	 * Este metodo creado en la clase Interfice Helper
-	 * utilizarlo o comprobar que funciones o si no borrarlo
+	 * Este metodo creado en la clase Interfice Helper utilizarlo o comprobar que
+	 * funciones o si no borrarlo
 	 */
 	public void removeByPlayer(Player player) {
-		repository.removeByPlayer(player);
+	//	repository.removeByPlayer(player);
 	}
 
 	public void deletePlayer(int playerId) throws NotFoundException {
@@ -59,14 +56,12 @@ public class PlayerRepository {
 		}
 
 	}
-	
-	
+
 	/*
-	 * Este metodo hay que comprobarlo o borrarlo
-	 * para base de datos
+	 * Este metodo hay que comprobarlo o borrarlo para base de datos
 	 */
 	public void updatePlayer(String name) {
-		repository.updateByPlayer(name);
+	//	repository.updateByPlayer(name);
 	}
 
 }

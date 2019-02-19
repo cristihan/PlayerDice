@@ -6,12 +6,16 @@ import java.util.List;
 import com.dice.domain.Dice;
 import com.dice.domain.Game;
 import com.dice.utilities.InvalidParamException;
+import com.google.gson.annotations.Expose;
 
 public class GameDTO {
 	
+	@Expose
 	private Integer id;
-	private boolean wins = true;
+	@Expose
+	private boolean hasWon;
 	private List<Dice> listDice = new ArrayList<Dice>();
+	@Expose
 	private List<Integer> listResult = new ArrayList<Integer>();	
 	
 	public GameDTO() {
@@ -23,7 +27,7 @@ public class GameDTO {
 			throw new InvalidParamException();
 		
 		this.id = game.getId();
-		this.wins = game.isWins();
+		this.hasWon = game.hasWon();
 		this.listDice = game.getListDice();
 		this.listResult = game.getListResult();
 	}
@@ -32,8 +36,8 @@ public class GameDTO {
 		return id;
 	}
 
-	public boolean isWins() {
-		return wins;
+	public boolean hasWon() {
+		return hasWon;
 	}
 
 	public List<Dice> getListDice() {

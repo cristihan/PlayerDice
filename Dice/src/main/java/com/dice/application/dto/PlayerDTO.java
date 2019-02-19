@@ -7,14 +7,18 @@ import java.util.List;
 import com.dice.domain.Game;
 import com.dice.domain.Player;
 import com.dice.utilities.InvalidParamException;
+import com.google.gson.annotations.Expose;
 
 public class PlayerDTO {
 	
+	@Expose
 	private int id;
+	@Expose
 	private String name;
-	private double wins;
+	@Expose
+	private double succesRate;
 	private List<Game> resultGame = new ArrayList<Game>();
-
+	
 	private Calendar dataIn;
 	
 	public PlayerDTO() {
@@ -27,7 +31,7 @@ public class PlayerDTO {
 		
 		this.id = player.getId();
 		this.name = player.getName();
-		this.wins = player.getWins();
+		this.succesRate = player.successRate();
 		this.resultGame = player.getListPlayGame();
 		this.dataIn = player.getDateIn();
 	}
@@ -44,7 +48,7 @@ public class PlayerDTO {
 	}	
 
 	public double getWins() {
-		return wins;
+		return succesRate;
 	}
 
 	public List<Game> getResultGame() {

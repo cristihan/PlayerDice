@@ -10,41 +10,39 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name ="Game")
+@Entity(name = "Game")
 public class Game {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name="game_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "game_id")
 	private Integer id;
-	@Column(name="hasWon")
-	private boolean hasWon = true;
-	
+	@Column(name = "hasWon")
+	private boolean hasWon;
+
 	@Embedded
 	private List<Dice> listDice = new ArrayList<Dice>();
-
-
 
 	public Game() {
 
 	}
 
-	public Game(Integer value) {
-		for (int i = 0; i < value; i++) {
+	public Game(int numberDice) {
+		for (int i = 0; i < numberDice; i++) {
 			listDice.add(new Dice());
 		}
 	}
 
 	public List<Integer> getListResult() {
-		List<Integer> results = new ArrayList<>();
+		List<Integer> results = new ArrayList<Integer>();
 		for (Dice dice : listDice) {
 			results.add(dice.getResult());
 		}
 		return results;
 	}
 
-	public void addDice(Integer value) {
-		for (int i = 0; i < value; i++) {
+	public void addDice(int numberDice) {
+		for (int i = 0; i < numberDice; i++) {
 			listDice.add(new Dice());
 		}
 	}
@@ -52,10 +50,10 @@ public class Game {
 	public Integer getId() {
 		return id;
 	}
-	
+
 	public boolean playGame() {
 		for (Dice dice : listDice)
-		dice.rollDice();		
+			dice.rollDice();
 		return hasWon();
 	}
 

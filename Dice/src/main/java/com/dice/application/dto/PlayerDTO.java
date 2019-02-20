@@ -17,8 +17,9 @@ public class PlayerDTO {
 	private String name;
 	@Expose
 	private double succesRate;
-	private List<Game> resultGame = new ArrayList<Game>();
-	
+	@Expose
+	private List<GameDTO> resultGame = new ArrayList<GameDTO>();
+	@Expose
 	private Calendar dataIn;
 	
 	public PlayerDTO() {
@@ -32,8 +33,16 @@ public class PlayerDTO {
 		this.id = player.getId();
 		this.name = player.getName();
 		this.succesRate = player.successRate();
-		this.resultGame = player.getListPlayGame();
+		this.resultGame = convertToDTO(player.getListPlayGame());
 		this.dataIn = player.getDateIn();
+	}
+	
+	private List<GameDTO> convertToDTO(List<Game> resultGame) throws InvalidParamException{
+		List<GameDTO> result = new ArrayList<>();
+		for (Game game : resultGame) {
+			result.add(new GameDTO(game));
+		}
+		return result;
 	}
 	
 	
@@ -51,7 +60,7 @@ public class PlayerDTO {
 		return succesRate;
 	}
 
-	public List<Game> getResultGame() {
+	public List<GameDTO> getResultGame() {
 		return resultGame;
 	}
 

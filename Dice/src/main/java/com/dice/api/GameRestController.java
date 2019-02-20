@@ -37,9 +37,10 @@ public class GameRestController {
 	
 	//POST /players/{id}/games/ : un jugador específic realitza una tirada dels daus.
 	@PostMapping(produces = "application/json;charset=UTF-8")
-	public String playGame(@PathVariable int playerId, @RequestBody JSONObject json) throws NotFoundException, InvalidParamException, JSONException {
-		int diceNumber = (int)json.get("diceNumber");
-		GameDTO game = controller.createGame(playerId, diceNumber);
+	public String playGame(@PathVariable int playerId, @RequestBody String json) throws NotFoundException, InvalidParamException, JSONException {
+		JSONObject jsonObj=new JSONObject(json);
+		String numberDice = jsonObj.getString("numberDice");
+		GameDTO game = controller.createGame(playerId, Integer.parseInt(numberDice));
 		return toJson(game);
 		
 	}

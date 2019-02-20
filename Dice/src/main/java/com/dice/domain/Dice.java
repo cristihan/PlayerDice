@@ -18,7 +18,7 @@ public class Dice {
 	private ThreadLocalRandom random = ThreadLocalRandom.current();
 
 	public Dice() {
-		result = random.nextInt(1, 8);
+		result = random.nextInt(1, 7);
 
 	}
 
@@ -31,7 +31,7 @@ public class Dice {
 	}
 
 	public void rollDice() {
-		result = random.nextInt(1, 8);
+		result = random.nextInt(1, 7);
 	}
 
 	public int getSides() {

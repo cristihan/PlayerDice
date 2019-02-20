@@ -19,20 +19,20 @@ import com.dice.utilities.NameRequiredException;
 public class Player {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="playerId")
 	private Integer id;
 	@Column(name="name")
 	private String name;
-	@Column(name="hasWon")
-	private double hasWon;
+	@Column(name="successRate")
+	private double successRate;
 	
 	@OneToMany(targetEntity = Game.class)
-	@JoinColumn(name = "game_id")
+	@JoinColumn(name = "player_id")
 	private List<Game> listPlayGame = new ArrayList<Game>();// variable para guardar el resultado de las tiradas
 	
 	
-	//private Calendar dataIn;
+	private Calendar dataIn;
 
 	public Player() {
 
@@ -43,8 +43,8 @@ public class Player {
 			throw new NameRequiredException();
 		
 			this.name = player.getName();
-			this.hasWon = 0;
-		//	this.dataIn = Calendar.getInstance();
+			this.successRate = 0;
+			this.dataIn = Calendar.getInstance();
 		
 	}
 
@@ -60,8 +60,8 @@ public class Player {
 		this.name = name;
 	}
 
-	public double getWins() {
-		return hasWon;
+	public double getSuccessRate() {
+		return successRate;
 	}
 
 	/*
@@ -83,9 +83,7 @@ public class Player {
 	/*
 	 * metodo para añadir una tirada del juego
 	 */
-	public void addGame(Game playGame) {
-		if (playGame.isWins())
-			hasWon++;
+	public void addGame(Game playGame) {	
 		this.listPlayGame.add(playGame);
 	}
 
@@ -111,7 +109,7 @@ public class Player {
 	}
 	
 	public Calendar getDateIn() {
-		return null;//dataIn;
+		return dataIn;
 	}
 
 }

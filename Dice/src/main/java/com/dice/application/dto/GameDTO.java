@@ -15,7 +15,9 @@ public class GameDTO {
 	@Expose
 	private boolean hasWon;
 	private List<Dice> listDice = new ArrayList<Dice>();
+	
 	@Expose
+	private String diceResults;
 	private List<Integer> listResult = new ArrayList<Integer>();	
 	
 	public GameDTO() {
@@ -30,6 +32,7 @@ public class GameDTO {
 		this.hasWon = game.hasWon();
 		this.listDice = game.getListDice();
 		this.listResult = game.getListResult();
+		this.diceResults = game.getListResult().toString();
 	}
 
 	public Integer getId() {
@@ -47,7 +50,10 @@ public class GameDTO {
 	public List<Integer> getListResult() {
 		return listResult;
 	}
-	
+
+	public String getDiceResults() {
+		return diceResults;
+	}
 	
 
 }

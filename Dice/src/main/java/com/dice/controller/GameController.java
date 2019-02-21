@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.dice.api.GameRestController;
 import com.dice.application.dto.GameDTO;
 import com.dice.domain.Game;
 import com.dice.domain.Player;
@@ -32,9 +31,7 @@ public class GameController {
 	 */
 	public GameDTO createGame(int playerId, int numberDice) throws NotFoundException, InvalidParamException {
 		Player player = playerRepository.getPlayerById(playerId);
-		Game game = new Game();
-		 game.addDice(numberDice);
-		 game.playGame();
+		Game game = new Game(numberDice);			
 		player.addGame(game);
 		gameReposiory.saveGame(game);
 		playerRepository.savePlayer(player);
@@ -48,8 +45,7 @@ public class GameController {
 	public void deleteGamesPlayer(int playerId) throws NotFoundException, InvalidParamException {
 		Player player = playerController.getPlayerId(playerId);
 		player.deleteGame();
-		player.successRate();
-
+		//remove from repo
 		playerRepository.savePlayer(player);
 
 	}
@@ -61,8 +57,6 @@ public class GameController {
 		List<GameDTO> gameDTOList = new ArrayList<>();
 		Player player = playerRepository.getPlayerById(playerId);
 		for (Game game : player.getListPlayGame()) {
-			// GameDTO gameDTO = new GameDTO(game);
-			// gameDTOList.add(gameDTO);
 			gameDTOList.add(new GameDTO(game));
 		}
 		return gameDTOList;

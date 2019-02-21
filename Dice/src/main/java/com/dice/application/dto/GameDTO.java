@@ -14,10 +14,11 @@ public class GameDTO {
 	private Integer id;
 	@Expose
 	private boolean hasWon;
-	private List<Dice> listDice = new ArrayList<Dice>();
+	private List<DiceDTO> listDice = new ArrayList<DiceDTO>(); //DTO!
 	
+	//@Expose
+	//private String diceResults;
 	@Expose
-	private String diceResults;
 	private List<Integer> listResult = new ArrayList<Integer>();	
 	
 	public GameDTO() {
@@ -30,9 +31,17 @@ public class GameDTO {
 		
 		this.id = game.getId();
 		this.hasWon = game.hasWon();
-		this.listDice = game.getListDice();
+		this.listDice = convertToDTO(game.getListDice());
 		this.listResult = game.getListResult();
-		this.diceResults = game.getListResult().toString();
+		//this.diceResults = game.getListResult().toString();
+	}
+	
+	private List<DiceDTO> convertToDTO(List<Dice> dice) throws InvalidParamException{
+		List<DiceDTO> result = new ArrayList<>();
+		for (Dice d : dice) {
+			result.add(new DiceDTO(d));
+		}
+		return result;
 	}
 
 	public Integer getId() {
@@ -43,7 +52,7 @@ public class GameDTO {
 		return hasWon;
 	}
 
-	public List<Dice> getListDice() {
+	public List<DiceDTO> getListDice() {
 		return listDice;
 	}
 
@@ -51,9 +60,9 @@ public class GameDTO {
 		return listResult;
 	}
 
-	public String getDiceResults() {
-		return diceResults;
-	}
+//	public String getDiceResults() {
+//		return diceResults;
+//	}
 	
 
 }

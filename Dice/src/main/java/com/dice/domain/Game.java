@@ -19,6 +19,8 @@ public class Game {
 	private Integer id;
 	@Column(name = "hasWon")
 	private boolean hasWon;
+//	@Embedded
+//	private List<Integer> diceResults= new ArrayList<>();
 
 	@Embedded
 	private List<Dice> listDice = new ArrayList<Dice>();
@@ -31,6 +33,7 @@ public class Game {
 		for (int i = 0; i < numberDice; i++) {
 			listDice.add(new Dice());
 		}
+		this.hasWon = playGame();
 	}
 
 	public List<Integer> getListResult() {
@@ -41,17 +44,11 @@ public class Game {
 		return results;
 	}
 
-	public void addDice(int numberDice) {
-		for (int i = 0; i < numberDice; i++) {
-			listDice.add(new Dice());
-		}
-	}
-
 	public Integer getId() {
 		return id;
 	}
 
-	public boolean playGame() {
+	private boolean playGame() {
 		for (Dice dice : listDice)
 			dice.rollDice();
 		return hasWon();

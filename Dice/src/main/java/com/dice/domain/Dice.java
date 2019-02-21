@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
+
 
 @Embeddable
 public class Dice {

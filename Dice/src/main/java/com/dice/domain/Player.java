@@ -15,23 +15,22 @@ import javax.persistence.OneToMany;
 import com.dice.application.dto.PlayerDTO;
 import com.dice.utilities.NameRequiredException;
 
-@Entity(name ="Player")
+@Entity(name = "Player")
 public class Player {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="playerId")
+	@Column(name = "playerId")
 	private Integer id;
-	@Column(name="name")
+	@Column(name = "name")
 	private String name;
-	@Column(name="successRate")
+	@Column(name = "successRate")
 	private double successRate;
-	
+
 	@OneToMany(targetEntity = Game.class)
 	@JoinColumn(name = "player_id")
 	private List<Game> listPlayGame = new ArrayList<Game>();// variable para guardar el resultado de las tiradas
-	
-	
+
 	private Calendar dataIn;
 
 	public Player() {
@@ -41,11 +40,11 @@ public class Player {
 	public Player(PlayerDTO player) throws NameRequiredException {
 		if (player == null || player.getName() == null)
 			throw new NameRequiredException();
-		
-			this.name = player.getName();
-			this.successRate = 0;
-			this.dataIn = Calendar.getInstance();
-		
+
+		this.name = player.getName();
+		this.successRate = 0;
+		this.dataIn = Calendar.getInstance();
+
 	}
 
 	public Integer getId() {
@@ -71,11 +70,10 @@ public class Player {
 		double success = 0;
 		for (Game game : listPlayGame) {
 			if (game.hasWon())
-			++success;				
+				++success;
 		}
 		if (listPlayGame.size() > 0)
-			return (success*100) / listPlayGame.size();
-			//return (wins / (double) listPlayGame.size()) * 100;
+			return (success * 100) / listPlayGame.size();
 		else
 			return 0.00;
 	}
@@ -83,7 +81,7 @@ public class Player {
 	/*
 	 * metodo para añadir una tirada del juego
 	 */
-	public void addGame(Game playGame) {	
+	public void addGame(Game playGame) {
 		this.listPlayGame.add(playGame);
 	}
 
@@ -94,20 +92,13 @@ public class Player {
 		return new ArrayList<>(listPlayGame);
 	}
 
-	public void setListPlayGame(List<Game> listPlayGame) {
-		this.listPlayGame = listPlayGame;
-	}
-
 	/*
 	 * metodo para eliminar el listado de Tiradas
 	 */
 	public void deleteGame() {
 		this.listPlayGame = new ArrayList<Game>();
-		// esta linia permite limpiar o eliminar la lista de tiradas
-		//this.resultGame.clear();
-		
 	}
-	
+
 	public Calendar getDateIn() {
 		return dataIn;
 	}

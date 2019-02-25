@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dice.application.dto.GameDTO;
+import com.dice.applicationDTO.GameDTO;
 import com.dice.controller.GameController;
 import com.dice.utilities.InvalidParamException;
 import com.dice.utilities.NotFoundException;

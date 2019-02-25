@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.dice.application.dto.GameDTO;
+import com.dice.applicationDTO.GameDTO;
 import com.dice.domain.Game;
 import com.dice.domain.Player;
 import com.dice.persistence.GameRepository;

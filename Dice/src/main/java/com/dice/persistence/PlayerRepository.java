@@ -35,15 +35,7 @@ public class PlayerRepository {
 		}
 		return result;
 	}
-
-	/*
-	 * Este metodo creado en la clase Interfice Helper utilizarlo o comprobar que
-	 * funciones o si no borrarlo
-	 */
-	public void removeByPlayer(Player player) {
-	//	repository.removeByPlayer(player);
-	}
-
+	
 	public void deletePlayer(int playerId) throws NotFoundException {
 		repository.deleteById(playerId);
 	}
@@ -57,11 +49,6 @@ public class PlayerRepository {
 
 	}
 
-	/*
-	 * Este metodo hay que comprobarlo o borrarlo para base de datos
-	 */
-	public void updatePlayer(String name) {
-	//	repository.updateByPlayer(name);
-	}
+	
 
 }

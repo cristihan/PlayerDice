@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dice.application.dto.PlayerDTO;
+import com.dice.applicationDTO.PlayerDTO;
 import com.dice.controller.PlayerController;
 import com.dice.utilities.InvalidParamException;
 import com.dice.utilities.NotFoundException;
@@ -44,7 +44,7 @@ public class PlayerRestController {
 	 
 	 //PUT /players : modifica el nom del jugador
 	 @PutMapping(value = "/players/{playerId}", produces = "application/json;charset=UTF-8")
-	 public String UpdatePlayer(@PathVariable int playerId, @RequestBody String jPlayer) throws NotFoundException, InvalidParamException {
+	 public String updatePlayer(@PathVariable int playerId, @RequestBody String jPlayer) throws NotFoundException, InvalidParamException {
 		 PlayerDTO playerToUpdate = new Gson().fromJson(jPlayer, PlayerDTO.class);
 		 PlayerDTO player = controller.updatePlayer(playerId, playerToUpdate);
 		return toJson(player);

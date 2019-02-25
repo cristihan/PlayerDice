@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-import com.dice.application.dto.PlayerDTO;
+import com.dice.applicationDTO.PlayerDTO;
 import com.dice.utilities.NameRequiredException;
 
 @Entity(name = "Player")
@@ -31,7 +31,7 @@ public class Player {
 	@JoinColumn(name = "player_id")
 	private List<Game> listPlayGame = new ArrayList<Game>();// variable para guardar el resultado de las tiradas
 
-	private Calendar dataIn;
+	private Calendar registrationDate;
 
 	public Player() {
 
@@ -43,7 +43,7 @@ public class Player {
 
 		this.name = player.getName();
 		this.successRate = 0;
-		this.dataIn = Calendar.getInstance();
+		this.registrationDate = Calendar.getInstance();
 
 	}
 
@@ -100,7 +100,7 @@ public class Player {
 	}
 
 	public Calendar getDateIn() {
-		return dataIn;
+		return registrationDate;
 	}
 
 }

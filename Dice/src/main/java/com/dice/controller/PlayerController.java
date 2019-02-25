@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.dice.application.dto.PlayerDTO;
+import com.dice.applicationDTO.PlayerDTO;
 import com.dice.domain.Player;
 import com.dice.persistence.PlayerRepository;
 import com.dice.utilities.InvalidParamException;
